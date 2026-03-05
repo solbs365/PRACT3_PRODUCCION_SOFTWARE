@@ -80,6 +80,10 @@ class ExpenseService:
 
         for expense in self._repository.list_all():
             key = expense.expense_date.strftime("%Y-%m")
+
+            if key not in totals:
+                totals[key] = 0.0
+
             totals[key] += expense.amount
 
         return dict(totals)
