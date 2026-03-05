@@ -3,7 +3,9 @@ from datetime import date, timedelta
 
 from core.expense import Expense
 from core.domain_error import (
-    EmptyTitleError, InvalidAmountError, InvalidExpenseDateError,
+    EmptyTitleError,
+    InvalidAmountError,
+    InvalidExpenseDateError,
 )
 
 
@@ -40,9 +42,9 @@ def test_negative_amount_raises_error():
         Expense(
             id=1,
             title="comida",
-            amount= -5,
+            amount=-5,
             description="Test",
-            expense_date=date.today()
+            expense_date=date.today(),
         )
 
 
@@ -64,5 +66,5 @@ def test_future_date_raises_error():
             title="Gasto futuro",
             amount=30,
             description="Test",
-            expense_date=date.today() + timedelta(days=1)
+            expense_date=date.today() + timedelta(days=1),
         )

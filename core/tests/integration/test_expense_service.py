@@ -106,7 +106,6 @@ def test_create_multiple_expenses_and_list():
     assert "Leche" in titles
 
 
-
 def test_remove_expense_reduces_total():
     """
     Evalúa el comportamiento del sistema al eliminar un gasto existente:
@@ -125,7 +124,7 @@ def test_remove_expense_reduces_total():
     service.create_expense("Revista", 12, "", date(2020, 3, 20))
 
     # Obtenemos la lista de gastos actuales
-    all_expenses  = service.list_expenses()
+    all_expenses = service.list_expenses()
 
     # Obtenemos el primer id de esa lista
     expense_to_remove = all_expenses[0].id
@@ -137,7 +136,6 @@ def test_remove_expense_reduces_total():
     remaining_expenses = service.list_expenses()
     assert len(remaining_expenses) == 1
     assert remaining_expenses[0].title == "Revista"
-
 
 
 def test_update_expense_partial_fields():
@@ -152,7 +150,7 @@ def test_update_expense_partial_fields():
         - El campo 'description' permanece sin cambios ("Ropa").
     - Este test asegura que el método update_expense respeta la inmutabilidad de los campos no especificados, realizando actualizaciones parciales de manera precisa.
     """
-    service =  create_service()
+    service = create_service()
 
     service.create_expense("Camiseta", 15, "Ropa", date(2026, 3, 4))
 

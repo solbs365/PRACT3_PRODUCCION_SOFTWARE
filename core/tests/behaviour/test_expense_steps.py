@@ -26,6 +26,7 @@ def manager_with_one_expense(context, amount):
         title="Gasto inicial", amount=amount, description="", expense_date=date.today()
     )
 
+
 # Añadido 1
 @given(parsers.parse("un gestor con un gasto de {amount:d} euros en {dt}"))
 def add_expense_with_date(context, amount, dt):
@@ -36,16 +37,19 @@ def add_expense_with_date(context, amount, dt):
         expense_date=date(year, month, day),
     )
 
+
 # Añadido 4
 @given(parsers.parse("un presupuesto de {amount:d} euros"))
 def set_budget(context, amount):
     context["budget"] = amount
+
 
 @when(parsers.parse("añado un gasto de {amount:d} euros llamado {title}"))
 def add_expense(context, amount, title):
     context["service"].create_expense(
         title=title, amount=amount, description="", expense_date=date.today()
     )
+
 
 # Añadido 2
 @when(parsers.parse("añado un gasto de {amount:d} euros llamado {title} en {dt}"))
@@ -55,6 +59,8 @@ def add_expense_with_specific_date(context, amount, title, dt):
     context["service"].create_expense(
         title=title, amount=amount, description="", expense_date=actual_date
     )
+
+
 # Añadido 3
 @when(parsers.parse("consulto los totales por mes"))
 def get_monthly_totals(context: dict):
@@ -73,7 +79,7 @@ def check_total(context, total):
 
 @then(parsers.parse("{month_name} debe sumar {expected_total:d} euros"))
 def check_month_total(context: dict, month_name, expected_total):
-    clean_month_name = month_name.replace('"', '').replace("'", "").strip()
+    clean_month_name = month_name.replace('"', "").replace("'", "").strip()
 
     totals = context.get("totals", {})
     total_actual = totals.get(clean_month_name, 0)
@@ -85,6 +91,7 @@ def check_month_total(context: dict, month_name, expected_total):
 def check_expenses_length(context, expenses):
     total = len(context["service"].list_expenses())
     assert expenses == total
+
 
 # Añadido 5
 @then("el total gastado debe ser mayor que el presupuesto")
